@@ -6,7 +6,7 @@ const Signup = () => {
       {/* Left Section (Info) */}
       <div className="lg:w-1/2 w-full bg-black  flex flex-col justify-center items-center p-10 text-left">
       <div className="flex gap-10">
-      <h1 className=" text-white text-3xl lg:text-8xl font-bold text-gray-800 mb-6 mr-40">
+      <h1 id="signup_heading" className=" text-white text-3xl lg:text-8xl font-bold mb-6 mr-40">
             <span className="font-medium">Get <br />into</span><br />DevOps.
           </h1>
         {/* <div>
@@ -27,7 +27,7 @@ const Signup = () => {
       </div>
 
       {/* Right Section (Signup Form) */}
-      <div className="lg:w-1/2 w-full bg-slate-900 flex items-center justify-center p-6 md:p-10">
+      <div className="lg:w-1/2 w-full flex items-center justify-center p-6 md:p-10">
         <div className="bg-white p-6 md:p-8 shadow-lg rounded-lg w-full max-w-md">
           <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-4 md:mb-6">
             Sign Up

@@ -1,10 +1,13 @@
+"use client"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
-const Login = () => {
+const ForgotPassword = () => {
+    const router = useRouter();
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-gray-100">
-      {/* Left Section (Info) */}
+    
       {/* Left Section (Info) */}
       <div className="lg:flex w-1/2 hidden h-full bg-black flex-col justify-center items-center p-6 md:p-10 text-left">
         <h1
@@ -20,14 +23,17 @@ const Login = () => {
         </h1>
       </div>
 
-      {/* Right Section (Login Form) */}
+      {/* Right Section (Forgot Password Form) */}
       <div className="lg:w-1/2 w-full h-full flex items-center justify-center p-4 sm:p-6 md:p-10">
         <div className="bg-white p-6 md:p-8 shadow-lg rounded-lg w-full max-w-md">
           <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-4 md:mb-6">
-            Login
+            Forgot Password
           </h2>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={(e) => {
+              e.preventDefault(); 
+              router.push("/reset-password");
+            }}>
             {/* Email */}
             <div>
               <label
@@ -44,58 +50,25 @@ const Login = () => {
               />
             </div>
 
-            {/* Password */}
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-600"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="mt-1 block w-full px-4 py-2 border rounded-md text-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your password"
-              />
-            </div>
-
-            {/* Remember Me */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center text-sm text-gray-600">
-                <input
-                  type="checkbox"
-                  className="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <span className="ml-2">Remember Me</span>
-              </label>
-              <Link
-                href="/forgot-password"
-                className="text-sm text-blue-500 hover:underline focus:outline-none"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-
             {/* Submit Button */}
             <div className="text-center">
               <button
                 type="submit"
                 className="bg-black border border-black text-white px-6 py-2 rounded-md hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
               >
-                Login
+                Reset Password
               </button>
             </div>
           </form>
 
-          {/* Sign Up Redirect */}
+          {/* Back to Login */}
           <p className="text-sm text-gray-600 text-center mt-4">
-            Don't have an account?{" "}
+            Remembered your password?{" "}
             <Link
-              href="/signup"
+              href="/login"
               className="text-blue-500 hover:underline focus:outline-none"
             >
-              Sign Up
+              Login
             </Link>
           </p>
         </div>
@@ -104,4 +77,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

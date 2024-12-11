@@ -42,8 +42,9 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
+     
       {/* Top Bar */}
-      <div className="w-full bg-black text-white py-4 px-6 flex justify-between items-center shadow-md">
+      <div className="w-full bg-black text-white py-4 px-6 flex justify-between items-center shadow-md fixed top-0 left-0 z-50">
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <button
           onClick={toggleSidebar} // Toggle sidebar visibility
@@ -64,13 +65,13 @@ const Dashboard = () => {
 
       {/* Content */}
       <div className="flex flex-col lg:flex-row flex-grow relative">
+       
         {/* Sidebar */}
         <div
-  className={`lg:relative fixed h-screen lg:w-1/5 w-full bg-black text-white lg:flex lg:flex-col p-6 lg:space-y-6 shadow-lg transition-transform duration-300 ease-in-out transform z-50 ${
-    isSidebarVisible ? "left-0" : "-left-full"
-  } lg:left-0 lg:translate-x-0 lg:flex-row lg:space-y-0 lg:items-start`}
->
-
+          className={`lg:relative fixed h-screen lg:w-1/5 w-full bg-black text-white lg:flex lg:flex-col p-6 lg:space-y-6 shadow-lg transition-transform duration-300 ease-in-out transform z-50 ${
+            isSidebarVisible ? "left-0" : "-left-full"
+          } lg:left-0 lg:translate-x-0 lg:flex-row lg:space-y-0 lg:items-start mt-16`}
+        >
           <div className="flex flex-col space-y-4">
             <div className="flex gap-5 items-center group">
               <Image
@@ -149,7 +150,7 @@ const Dashboard = () => {
         <div
           className={`lg:w-4/5 w-full px-4 py-6 bg-white overflow-auto transition-all duration-300 ${
             isSidebarVisible ? "lg:ml-1/5 ml-0" : ""
-          }`}
+          } mt-16`}
         >
           <h2 className="text-2xl font-semibold mb-6">Select a Project</h2>
 

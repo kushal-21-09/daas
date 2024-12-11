@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false); // New state for sidebar visibility
 
   useEffect(() => {
     // Simulate fetching data from an API
@@ -35,96 +36,161 @@ const Dashboard = () => {
     setSelectedProject(project);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible); // Toggle sidebar visibility
+  };
+
   return (
-    <div className="flex flex-col lg:flex-row h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="lg:w-1/4 w-full bg-black text-white flex flex-col p-6 space-y-6 shadow-lg">
-        <div className="flex gap-5 items-center mb-6 group">
-          <Image src={dashboard} height={100} width={30} alt={"dashboard"} className="filter brightness-0 invert sepia hue-rotate-[90deg]"/>
-          <h2 className="text-3xl font-bold">Dashboard</h2>
-        </div>
-
-        <div className="flex flex-col space-y-4">
-          <div className="flex gap-5 items-center group">
-            <Image src={logs} height={100} width={20} alt={"logs"} className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]"/>
-            <Link href="/logs" className="text-lg hover:text-gray-300">
-              Logs
-            </Link>
-          </div>
-          <div className="flex gap-5 items-center group">
-            <Image src={settings} height={100} width={20} alt={"settings"} className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]" />
-            <Link href="/settings" className="text-lg hover:text-gray-300">
-              Settings
-            </Link>
-          </div>
-          <div className="flex gap-5 items-center group">
-            <Image src={dollar} height={100} width={20} alt={"dollar"} className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]" />
-            <Link href="/biving" className="text-lg hover:text-gray-300">
-              Biving
-            </Link>
-          </div>
-
-          <div className="flex gap-5 items-center group">
-            <Image
-              src={add_member}
-              height={100}
-              width={20}
-              alt={"add_member"}
-              className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]"
-            />
-            <Link href="/invite" className="text-lg hover:text-gray-300">
-              Invite Members
-            </Link>
-          </div>
-          <div className="flex gap-5 items-center group">
-            <Image src={ticket} height={100} width={20} alt={"ticket"} className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]" />
-            <Link href="/ticket" className="text-lg hover:text-gray-300">
-              Raise Ticket
-            </Link>
-          </div>
+    <div className="flex flex-col h-screen bg-gray-100">
+      {/* Top Bar */}
+      <div className="w-full bg-black text-white py-4 px-6 flex justify-between items-center shadow-md">
+        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <button
+          onClick={toggleSidebar} // Toggle sidebar visibility
+          className="lg:hidden bg-gray-800 p-2 rounded-full hover:bg-gray-700"
+        >
+          <Image src={dashboard} alt="Toggle Sidebar" width={30} height={30} />
+        </button>
+        {/* Logout button on larger screens */}
+        <div className="hidden lg:flex">
+          <button
+            onClick={() => alert("Logging out")}
+            className="bg-white text-black font-semibold px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:bg-red-600 hover:text-white hover:scale-105 hover:shadow-xl"
+          >
+            Logout
+          </button>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="lg:w-3/4 w-full px-10 py-10 bg-white overflow-auto">
-        <h2 className="text-3xl font-semibold mb-6">Select a Project</h2>
+      {/* Content */}
+      <div className="flex flex-col lg:flex-row flex-grow relative">
+        {/* Sidebar */}
+        <div
+          className={`fixed h-screen lg:relative lg:w-1/5 w-full bg-black text-white lg:flex lg:flex-col p-6 lg:space-y-6 shadow-lg transition-all duration-300 ease-in-out ${
+            isSidebarVisible ? "left-0" : "-left-full"
+          } lg:left-0 lg:translate-x-0 lg:flex-row lg:space-y-0 lg:items-start`}
+        >
+          <div className="flex flex-col space-y-4">
+            <div className="flex gap-5 items-center group">
+              <Image
+                src={logs}
+                height={100}
+                width={20}
+                alt={"logs"}
+                className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]"
+              />
+              <Link href="/logs" className="text-lg hover:text-gray-300">
+                Logs
+              </Link>
+            </div>
+            <div className="flex gap-5 items-center group">
+              <Image
+                src={settings}
+                height={100}
+                width={20}
+                alt={"settings"}
+                className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]"
+              />
+              <Link href="/settings" className="text-lg hover:text-gray-300">
+                Settings
+              </Link>
+            </div>
+            <div className="flex gap-5 items-center group">
+              <Image
+                src={dollar}
+                height={100}
+                width={20}
+                alt={"dollar"}
+                className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]"
+              />
+              <Link href="/billing" className="text-lg hover:text-gray-300">
+                Billing
+              </Link>
+            </div>
+            <div className="flex gap-5 items-center group">
+              <Image
+                src={add_member}
+                height={100}
+                width={20}
+                alt={"add_member"}
+                className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]"
+              />
+              <Link href="/invite" className="text-lg hover:text-gray-300">
+                Invite Members
+              </Link>
+            </div>
+            <div className="flex gap-5 items-center group">
+              <Image
+                src={ticket}
+                height={100}
+                width={20}
+                alt={"ticket"}
+                className="filter brightness-50 invert group-hover:brightness-0 group-hover:sepia group-hover:hue-rotate-[90deg]"
+              />
+              <Link href="/ticket" className="text-lg hover:text-gray-300">
+                Raise Ticket
+              </Link>
+            </div>
 
-        {isLoading ? (
-          <div>Loading projects...</div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                className={`px-5 py-10 rounded-lg shadow-md cursor-pointer transition ${
-                  selectedProject?.id === project.id
-                    ? "bg-black text-white"
-                    : "bg-gray-100 hover:bg-gray-200"
-                }`}
-                onClick={() => handleProjectSelect(project)}
+            {/* Logout in Sidebar for Mobile */}
+            <div className="lg:hidden flex gap-5 items-center group mt-auto">
+              <button
+                onClick={() => alert("Logging out")}
+                className="bg-white text-black px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:bg-red-600 hover:text-white hover:scale-105 hover:shadow-xl"
               >
-                <h3 className="text-xl font-semibold">{project.name}</h3>
-              </div>
-            ))}
+                Logout
+              </button>
+            </div>
           </div>
-        )}
+        </div>
 
-        {/* Buttons */}
-        <div className="mt-6 flex space-x-4">
-          {selectedProject ? (
+        {/* Main Content */}
+        <div
+          className={`lg:w-4/5 w-full px-4 py-6 bg-white overflow-auto transition-all duration-300 ${
+            isSidebarVisible ? "lg:ml-1/5 ml-0" : ""
+          }`}
+        >
+          <h2 className="text-2xl font-semibold mb-6">Select a Project</h2>
+
+          {isLoading ? (
+            <div className="flex justify-center items-center h-[calc(80vh-200px)]">
+              <div className="border-t-4 border-black -500 border-solid w-16 h-16 rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {projects.map((project) => (
+                <div
+                  key={project.id}
+                  className={`px-8 py-12 rounded-lg shadow-xl cursor-pointer transition-all duration-300 ease-in-out transform ${
+                    selectedProject?.id === project.id
+                      ? "bg-black text-white scale-105"
+                      : "bg-gray-100 hover:bg-gray-200 hover:scale-105"
+                  }`}
+                  onClick={() => handleProjectSelect(project)}
+                >
+                  <h3 className="text-xl font-semibold">{project.name}</h3>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Buttons */}
+          <div className="mt-6 flex space-x-4">
+            {selectedProject ? (
+              <button
+                onClick={() => alert(`Continuing with ${selectedProject.name}`)}
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+              >
+                Continue with {selectedProject.name}
+              </button>
+            ) : null}
             <button
-              onClick={() => alert(`Continuing with ${selectedProject.name}`)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+              onClick={() => alert("Create a new project")}
+              className="bg-black text-white px-6 py-2 rounded-lg hover:bg-white hover:text-black border border-black"
             >
-              Continue with {selectedProject.name}
+              New Project
             </button>
-          ) : null}
-          <button
-            onClick={() => alert("Create a new project")}
-            className="bg-black text-white px-6 py-2 rounded-lg hover:bg-white hover:text-black border border-black"
-          >
-            New Project
-          </button>
+          </div>
         </div>
       </div>
     </div>

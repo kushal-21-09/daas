@@ -8,8 +8,10 @@ import dollar from "@/public/dollar.svg";
 import logs from "@/public/logs.svg";
 import ticket from "@/public/raise-ticket.svg";
 import settings from "@/public/setting.svg";
+import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
+  let router = useRouter();
   const [projects, setProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
@@ -159,18 +161,18 @@ const Dashboard = () => {
               <div className="border-t-4 border-black -500 border-solid w-16 h-16 rounded-full animate-spin"></div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {projects.map((project) => (
                 <div
                   key={project.id}
-                  className={`px-8 py-12 rounded-lg shadow-xl cursor-pointer transition-all duration-300 ease-in-out transform ${
+                  className={`px-8 py-12 rounded-lg shadow-xl cursor-pointer transition-all duration-300 ease-in-out transform border-2 ${
                     selectedProject?.id === project.id
                       ? "bg-black text-white scale-105"
-                      : "bg-gray-100 hover:bg-gray-200 hover:scale-105"
+                      : "bg-gray-100 hover:bg-gray-200 hover:scale-105 hover:border-green-300"
                   }`}
                   onClick={() => handleProjectSelect(project)}
                 >
-                  <h3 className="text-xl font-semibold">{project.name}</h3>
+                  <h3 className="text-xl font-semibold text-center">{project.name}</h3>
                 </div>
               ))}
             </div>
@@ -181,14 +183,14 @@ const Dashboard = () => {
             {selectedProject ? (
               <button
                 onClick={() => alert(`Continuing with ${selectedProject.name}`)}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                className="text-black px-10 py-3 rounded-lg shadow-lg hover:text-green-800 transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none"
               >
                 Continue with {selectedProject.name}
               </button>
             ) : null}
             <button
-              onClick={() => alert("Create a new project")}
-              className="bg-black text-white px-6 py-2 rounded-lg hover:bg-white hover:text-black border border-black"
+              onClick={()=> router.push('/create-project')}
+              className="bg-black text-white px-10 py-3 rounded-lg shadow-lg hover:bg-white hover:text-black hover:border-black border-2 border-transparent transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none"
             >
               New Project
             </button>

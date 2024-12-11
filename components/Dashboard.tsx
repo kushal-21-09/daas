@@ -66,10 +66,11 @@ const Dashboard = () => {
       <div className="flex flex-col lg:flex-row flex-grow relative">
         {/* Sidebar */}
         <div
-          className={`fixed h-screen lg:relative lg:w-1/5 w-full bg-black text-white lg:flex lg:flex-col p-6 lg:space-y-6 shadow-lg transition-all duration-300 ease-in-out ${
-            isSidebarVisible ? "left-0" : "-left-full"
-          } lg:left-0 lg:translate-x-0 lg:flex-row lg:space-y-0 lg:items-start`}
-        >
+  className={`lg:relative fixed h-screen lg:w-1/5 w-full bg-black text-white lg:flex lg:flex-col p-6 lg:space-y-6 shadow-lg transition-transform duration-300 ease-in-out transform z-50 ${
+    isSidebarVisible ? "left-0" : "-left-full"
+  } lg:left-0 lg:translate-x-0 lg:flex-row lg:space-y-0 lg:items-start`}
+>
+
           <div className="flex flex-col space-y-4">
             <div className="flex gap-5 items-center group">
               <Image
